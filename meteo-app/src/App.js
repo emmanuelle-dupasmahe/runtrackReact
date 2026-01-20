@@ -11,6 +11,23 @@ function App() {
     const [favorites, setFavorites] = useState([]);
     const [history, setHistory] = useState([]);
 
+    const getMyLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const geoCity = {
+                    name: "Ma position",
+                    lat: position.coords.latitude,
+                    lon: position.coords.longitude
+                };
+                setCity(geoCity);
+            });
+        } else {
+            alert("La géolocalisation n'est pas supportée par votre navigateur.");
+        }
+    };
+
+
+
 
     useEffect(() => {
         const savedFavorites = localStorage.getItem('meteo-favorites');
@@ -55,39 +72,40 @@ function App() {
         setCity(cityData);
         addToHistory(cityData);
     };
-   return (
-    <div className="App">
-        <h1 className="rainbow-text">Météo</h1>
-        
-        {/* On utilise handleSearch au lieu de setCity directement */}
-        <SearchBar onSearch={handleSearch} />
+    return (
+        <div className="App">
+            <h1 className="rainbow-text">Météo</h1>
 
-        {/* Affichage de l'historique */}
-        {history.length > 0 && (
-            <div className="history-container">
-                <small>Recherches récentes :</small>
-                <div className="history-list">
-                    {history.map((item, index) => (
-                        <button 
-                            key={index} 
-                            onClick={() => setCity(item)} 
-                            className="history-item"
-                        >
-                            {item.name}
-                        </button>
-                    ))}
+
+            <SearchBar onSearch={handleSearch} />
+            <button onClick={getMyLocation} className="btn-geo">📍 Ma position</button>
+
+            {/* Affichage de l'historique */}
+            {history.length > 0 && (
+                <div className="history-container">
+                    <small>Recherches récentes :</small>
+                    <div className="history-list">
+                        {history.map((item, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setCity(item)}
+                                className="history-item"
+                            >
+                                {item.name}
+                            </button>
+                        ))}
+                    </div>
                 </div>
-            </div>
-        )}
+            )}
 
-        <Favorites
-            favorites={favorites}
-            onSelectFavorite={setCity}
-            onRemoveFavorite={removeFromFavorites}
-        />
+            <Favorites
+                favorites={favorites}
+                onSelectFavorite={setCity}
+                onRemoveFavorite={removeFromFavorites}
+            />
 
-        <Meteo ville={city} onAddFavorite={addToFavorites} />
-    </div>
-);
+            <Meteo ville={city} onAddFavorite={addToFavorites} />
+        </div>
+    );
 }
 export default App;
