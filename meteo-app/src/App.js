@@ -10,6 +10,23 @@ function App() {
     const [city, setCity] = useState({ name: 'Paris', lat: 48.8566, lon: 2.3522 });
     const [favorites, setFavorites] = useState([]);
     const [history, setHistory] = useState([]);
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        // On vérifie le localStorage dès le début
+        return localStorage.getItem('theme') === 'dark';
+    });
+
+    
+    useEffect(() => {
+        if (isDarkMode) {
+            document.body.classList.add('dark-theme');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.body.classList.remove('dark-theme');
+            localStorage.setItem('theme', 'light');
+        }
+    }, [isDarkMode]);
+
+    const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
     const getMyLocation = () => {
         if (navigator.geolocation) {
@@ -75,7 +92,11 @@ function App() {
     return (
         <div className="App">
             <h1 className="rainbow-text">Météo</h1>
-
+            
+            {/* Bouton de changement de thème */}
+            <button onClick={toggleTheme} className="theme-toggle">
+                {isDarkMode ? '☀️ Mode Clair' : '🌙 Mode Sombre'}
+            </button>
 
             <SearchBar onSearch={handleSearch} />
             <button onClick={getMyLocation} className="btn-geo">📍 Ma position</button>

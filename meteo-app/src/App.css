@@ -9,6 +9,62 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
 }
+/*Clair */
+:root {
+    --bg-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --text-color: #2c3e50;
+    --item-bg: rgba(255, 255, 255, 0.3);
+    --border-color: rgba(60, 53, 53, 0.758);
+}
+
+/* Sombre */
+body.dark-theme {
+    --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    --card-bg: rgba(30, 30, 50, 0.85);
+    --text-color: #f1f1f1;
+    --item-bg: rgba(255, 255, 255, 0.1);
+    --border-color: rgba(255, 255, 255, 0.2);
+}
+
+
+body {
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    min-height: 100vh;
+    transition: background 0.4s ease;
+    color: var(--text-color);
+}
+
+.weather-card, .forecast-card, .favorite-item, .history-item {
+    background: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    backdrop-filter: blur(10px);
+}
+
+/* bouton qui switche entre mode sombre et clair*/
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid white;
+    background: var(--card-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.05);
+    background: #ffffff;
+    color: #000000;
+}
+
+/*titre en arc en ciel*/
 .rainbow-text {
   font-size: 3rem;
   font-weight: 800;
@@ -21,7 +77,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   
-  /* Optionnel : petite animation pour que l'arc-en-ciel bouge */
+  /* petite animation pour que l'arc-en-ciel bouge */
   background-size: 200% auto;
   animation: rainbow-animation 4s linear infinite;
   margin-bottom: 20px;
@@ -73,19 +129,20 @@ button:hover {
 .temp {
   font-size: 3rem;
   font-weight: bold;
+  color: var(--text-color);
   margin: 10px 0;
-  color: #222;
+  
 }
 
 .desc {
   text-transform: capitalize;
   font-style: italic;
-  color: #666;
+  color: var(--text-color) !important;
 }
 .suggestions-list {
   position: absolute;
   background: white;
-  width: 200px; /* Même largeur que ton input */
+  width: 200px;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -112,22 +169,45 @@ button:hover {
 }
 .feels-like {
   font-size: 1.1rem;
-  color: #555;
+  color: var(--text-color);
+  opacity: 0.9;
   margin-top: -10px; 
   margin-bottom: 10px;
 }
 /*pour les températures maximales et minimales*/
-.min-max-container {
-    margin: 10px 0;
-    font-weight: 500;
-    color: #444;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+
+/* Températures "Normales" (Gris dynamique) */
+.temp-normal {
+    color: var(--text-muted) !important;
 }
 
+/* Température Froide (Bleu qui s'adapte) */
+.temp-cold {
+    color: #007bff; /* Bleu standard en clair */
+    font-weight: bold;
+}
+body.dark-theme .temp-cold {
+    color: #4dabff; /* Bleu plus clair et électrique en sombre */
+}
+
+/* Température Chaude (Rouge qui s'adapte) */
+.temp-hot {
+    color: #ff4d4d; /* Rouge standard en clair */
+    font-weight: bold;
+}
+body.dark-theme .temp-hot {
+    color: #ff6b6b; /* Rouge corail plus visible en sombre */
+}
+/* animation de pulsation sur la temperature très chaude */
+.max-hot {
+    animation: pulse 2s infinite;
+}
+/* Style global du conteneur pour le séparateur | */
+.min-max-container {
+    color: var(--text-muted);
+}
 .separator {
-    color: #ccc;
+    color: var(--text-color) !important;
 }
 
 /*lever et coucher du soleil*/
@@ -136,15 +216,12 @@ button:hover {
     justify-content: space-around;
     margin-top: 15px;
     padding-top: 10px;
-    border-top: 1px dashed #ddd;
+    border-top: 1px dashed var(--border-color);
     font-size: 0.9rem;
-    color: #666;
+    color: var(--text-color) !important;
 }
 
-/* On peut aussi ajouter une petite animation de pulsation sur le texte rouge */
-.max-hot {
-    animation: pulse 2s infinite;
-}
+
 
 @keyframes pulse {
     0% { opacity: 1; }
@@ -224,7 +301,51 @@ button:hover {
 .history-item:hover {
     background: rgba(255, 255, 255, 0.4);
 }
+/* pour les prévisions météo*/
+.forecast-container {
+    margin-top: 30px;
+    padding: 20px;
+}
 
+.forecast-grid {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.forecast-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    border-radius: 15px;
+    width: 100px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.forecast-date {
+    font-weight: bold;
+    text-transform: capitalize;
+    font-size: 0.9rem;
+}
+
+.forecast-temp {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.forecast-desc {
+    font-size: 0.7rem;
+    color:#ffd700;
+}
+
+.forecast-date {
+    display: block;
+    color: #ffd700; 
+    margin-bottom: 5px;
+    font-weight: 800;
+}
 /* --- Responsive --- */
 @media (max-width: 600px) {
     .App {
