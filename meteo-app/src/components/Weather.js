@@ -6,7 +6,7 @@ const formatTime = (timestamp) => {
     return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 };
 
-function Meteo({ ville }) {
+function Meteo({ ville, onAddFavorite}) {
     const [meteo, setMeteo] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -53,6 +53,12 @@ function Meteo({ ville }) {
 
     return (
         <div className="weather-card">
+            <button 
+                className="btn-fav" 
+                onClick={() => onAddFavorite({ name: meteo.name, lat: meteo.coord.lat, lon: meteo.coord.lon })}
+            >
+                ⭐ Ajouter aux favoris
+            </button>
             <h2>{meteo.name}</h2>
             <img 
                 src={`https://openweathermap.org/img/wn/${meteo.weather[0].icon}@2x.png`} 
