@@ -18,8 +18,8 @@ function SearchBar({ onSearch }) {
     const selectCity = (s) => {
         const cityData = {
             name: s.properties.city,
-            lat: s.geometry.coordinates[1], // Latitude
-            lon: s.geometry.coordinates[0]  // Longitude
+            lat: s.geometry.coordinates[1],
+            lon: s.geometry.coordinates[0]
         };
         onSearch(cityData);
         setInput(s.properties.city);
@@ -27,31 +27,27 @@ function SearchBar({ onSearch }) {
     };
 
     return (
-    
-    <div className="search-container" style={{ position: 'relative' }}>
-        <form onSubmit={(e) => e.preventDefault()}>
-            <input
-                type="text"
-                placeholder="Chercher une ville..."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                /* ✅ Sécurité : on vérifie si suggestions existe avant .length */
-                style={{ borderRadius: (suggestions && suggestions.length > 0) ? '20px 0 0 0' : '20px 0 0 20px' }}
-            />
-        </form>
+        <div className="search-container" style={{ position: 'relative' }}>
+            <form onSubmit={(e) => e.preventDefault()}>
+                <input
+                    type="text"
+                    placeholder="Chercher une ville..."
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    style={{ borderRadius: (suggestions && suggestions.length > 0) ? '20px 0 0 0' : '20px 0 0 20px' }}
+                />
+            </form>
 
-        {/* ✅ Sécurité : on vérifie que suggestions est bien un tableau et n'est pas vide */}
-        {Array.isArray(suggestions) && suggestions.length > 0 && (
-            <ul className="suggestions-list">
-                {suggestions.map((s, index) => (
-                    <li key={index} onClick={() => selectCity(s)}>
-                        {s.properties.city} ({s.properties.postcode.substring(0, 2)})
-                    </li>
-                ))}
-            </ul>
-        )}
-    </div>
-
+            {Array.isArray(suggestions) && suggestions.length > 0 && (
+                <ul className="suggestions-list">
+                    {suggestions.map((s, index) => (
+                        <li key={index} onClick={() => selectCity(s)}>
+                            {s.properties.city} ({s.properties.postcode.substring(0, 2)})
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
     );
 }
 
