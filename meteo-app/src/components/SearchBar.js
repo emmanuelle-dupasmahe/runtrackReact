@@ -1,11 +1,9 @@
-
 import { useState, useEffect } from 'react';
 
 function SearchBar({ onSearch }) {
     const [input, setInput] = useState('');
     const [suggestions, setSuggestions] = useState([]);
 
-    // Appel à l'API Adresse quand l'utilisateur tape
     useEffect(() => {
         if (input.length > 2) {
             fetch(`https://api-adresse.data.gouv.fr/search/?q=${input}&type=municipality&limit=5`)
@@ -17,37 +15,33 @@ function SearchBar({ onSearch }) {
         }
     }, [input]);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (input.trim()) {
-            onSearch(input);
-            setSuggestions([]);
-        }
+    const selectCity = (s) => {
+        const cityData = {
+            name: s.properties.city,
+            lat: s.geometry.coordinates[1], // Latitude
+            lon: s.geometry.coordinates[0]  // Longitude
+        };
+        onSearch(cityData);
+        setInput(s.properties.city);
+        setSuggestions([]);
     };
 
     return (
-        <div className="search-container" style={{ position: 'relative' }}>
-            <form onSubmit={handleSubmit}>
+        <div className="search-container">
+            <form onSubmit={(e) => e.preventDefault()}>
                 <input
                     type="text"
-                    placeholder="Chercher une ville française..."
+                    placeholder="Chercher une ville..."
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    style={{ borderRadius: suggestions.length > 0 ? '20px 0 0 0' : '20px 0 0 20px' }}
                 />
-                <button type="submit">Rechercher</button>
             </form>
 
-            {/* Liste des suggestions */}
             {suggestions.length > 0 && (
                 <ul className="suggestions-list">
                     {suggestions.map((s, index) => (
-                        <li key={index} onClick={() => {
-                            setInput(s.properties.city);
-                            onSearch(s.properties.city);
-                            setSuggestions([]);
-                        }}>
-                            {s.properties.city} ({s.properties.context.split(',')[0]})
+                        <li key={index} onClick={() => selectCity(s)}>
+                            {s.properties.city} ({s.properties.postcode.substring(0, 2)})
                         </li>
                     ))}
                 </ul>
