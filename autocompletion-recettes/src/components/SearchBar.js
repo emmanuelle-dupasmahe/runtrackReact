@@ -10,7 +10,7 @@ const SearchBar = () => {
   const navigate = useNavigate();
   const searchRef = useRef(null); // Pour détecter le clic extérieur
 
-  // Liste plate pour la navigation au clavier
+  //pour la navigation au clavier
   const flatSuggestions = [...groupedSuggestions.startsWith, ...groupedSuggestions.contains];
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const SearchBar = () => {
     }
   };
 
-  // Logique du clavier (basée sur votre image)
+  // clavier 
   const handleKeyDown = (e) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
@@ -73,6 +73,20 @@ const SearchBar = () => {
     navigate(`/search?q=${encodeURIComponent(name)}`);
   };
 
+  const highlightMatch = (text, query) => {
+  if (!query) return text;
+  const parts = text.split(new RegExp(`(${query})`, 'gi'));
+  return (
+    <span>
+      {parts.map((part, i) => 
+        part.toLowerCase() === query.toLowerCase() 
+          ? <strong key={i} style={{ color: '#000' }}>{part}</strong> 
+          : part
+      )}
+    </span>
+  );
+};
+
   return (
     <div className="search-wrapper" ref={searchRef}>
       <form onSubmit={(e) => { e.preventDefault(); handleSuggestionClick(query); }} className="search-form">
@@ -90,7 +104,7 @@ const SearchBar = () => {
           
           {flatSuggestions.length > 0 && (
             <ul className="suggestions-list">
-              {/* On map sur les deux groupes en calculant l'index global */}
+              
               {[...groupedSuggestions.startsWith, ...groupedSuggestions.contains].map((meal, index) => {
                 const isDivider = index === groupedSuggestions.startsWith.length && groupedSuggestions.contains.length > 0;
                 return (
@@ -101,7 +115,7 @@ const SearchBar = () => {
                       className={`suggestion-item ${index === selectedIndex ? 'active' : ''} ${index < groupedSuggestions.startsWith.length ? 'starts-with' : ''}`}
                     >
                       <img src={meal.strMealThumb} alt="" className="suggestion-thumb" />
-                      <span>{meal.strMeal}</span>
+                      <span>{highlightMatch(meal.strMeal, query)}</span>
                     </li>
                   </React.Fragment>
                 );
