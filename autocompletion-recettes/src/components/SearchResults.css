@@ -1,3 +1,34 @@
+/* Style pour le lien du logo */
+.mini-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+  gap: 10px;
+}
+
+/* Taille de l'image du logo dans le header */
+.header-logo-img {
+  height: 40px; /* Ajustez selon votre préférence */
+  width: auto;
+  object-fit: contain;
+}
+
+/* Couleurs spécifiques */
+.blue { color: #4285F4; }
+.orange { color: #FFA500; }
+
+/* Alignement du header */
+.results-header, .detail-header {
+  display: flex;
+  align-items: center;
+  padding: 15px 5%;
+  background: white;
+  border-bottom: 1px solid #eee;
+  gap: 40px;
+}
 .results-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

@@ -72,3 +72,49 @@
 .search-button:hover {
   filter: brightness(0.9);
 }
+
+.search-wrapper {
+  position: relative; /* Important pour positionner la liste */
+  width: 100%;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.suggestions-list {
+  position: absolute;
+  top: 100%; /* Juste en dessous de l'input */
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #dfe1e5;
+  border-top: none;
+  border-radius: 0 0 24px 24px;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  box-shadow: 0 4px 6px rgba(32,33,36,0.28);
+  z-index: 1000; /* Pour passer devant les autres éléments */
+  max-height: 300px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.suggestions-list li {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.suggestions-list li:hover {
+  background-color: #f1f1f1;
+}
+
+/* Ajustement de l'input si des suggestions sont présentes */
+.search-input {
+  /* Gardez votre style actuel, mais on peut ajuster les bords si la liste est ouverte */
+  z-index: 1001;
+}

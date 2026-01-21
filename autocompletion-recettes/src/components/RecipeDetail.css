@@ -1,0 +1,136 @@
+.detail-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 30px;
+}
+/* Style pour le lien du logo */
+.mini-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+  gap: 10px;
+}
+
+/* Taille de l'image du logo dans le header */
+.header-logo-img {
+  height: 40px; /* Ajustez selon votre préférence */
+  width: auto;
+  object-fit: contain;
+}
+
+/* Couleurs spécifiques */
+.blue { color: #4285F4; }
+.orange { color: #FFA500; }
+
+/* Alignement du header */
+.results-header, .detail-header {
+  display: flex;
+  align-items: center;
+  padding: 15px 5%;
+  background: white;
+  border-bottom: 1px solid #eee;
+  gap: 40px;
+}
+
+
+.mini-logo img {
+  height: 35px;
+}
+
+/* On ajuste la barre de recherche pour qu'elle soit moins large dans le header */
+.header-search-bar {
+  flex: 1;
+  max-width: 500px;
+}
+
+.header-search-bar .search-form {
+  display: flex;
+  gap: 10px;
+}
+
+.header-search-bar .search-input {
+  padding: 8px 15px;
+  font-size: 14px;
+}
+
+.header-search-bar .search-button {
+  padding: 8px 15px;
+  font-size: 12px;
+}
+
+.content-wrapper {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.recipe-detail-page {
+  padding: 40px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+}
+
+.back-button {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.recipe-card-detail {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.recipe-header {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.detail-img {
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.ingredients-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.ingredient-item {
+  padding: 10px;
+  border: 1px solid #eee;
+  background: white;
+  font-size: 0.9rem;
+}
+
+.instructions-text {
+  line-height: 1.6;
+  white-space: pre-line; /* Respecte les sauts de ligne de l'API */
+  color: #444;
+}
+
+
