@@ -74,3 +74,45 @@
   margin-top: 50px;
   font-size: 1.2rem;
 }
+/* Highlight */
+strong {
+  font-weight: 800;
+  color: #4285f4;
+}
+
+/* Bouton Partager */
+.share-button {
+  background-color: #34a853; /* Vert */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* Barre de filtres */
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  scrollbar-width: none; /* Cache la scrollbar sur Firefox */
+}
+
+.filter-chip {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 6px 15px;
+  border-radius: 20px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-chip:hover {
+  background: #4285f4;
+  color: white;
+  border-color: #4285f4;
+}

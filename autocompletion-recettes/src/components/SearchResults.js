@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import './SearchResults.css';
 import logoImg from './glouton.png';
@@ -7,6 +7,7 @@ import logoImg from './glouton.png';
 const SearchResults = () => {
     const [searchParams] = useSearchParams();
     const query = searchParams.get('q');
+    const navigate = useNavigate();
     const [meals, setMeals] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -14,7 +15,17 @@ const SearchResults = () => {
         const fetchMeals = async () => {
             setLoading(true);
             try {
-                const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
+                
+                const catRes = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+                const catData = await catRes.json();
+                const isCategory = catData.meals.some(c => c.strCategory.toLowerCase() === query.toLowerCase());
+
+               
+                const url = isCategory
+                    ? `https://www.themealdb.com/api/json/v1/1/filter.php?c=${query}`
+                    : `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
+
+                const response = await fetch(url);
                 const data = await response.json();
                 setMeals(data.meals || []);
             } catch (error) {
@@ -26,6 +37,15 @@ const SearchResults = () => {
 
         if (query) fetchMeals();
     }, [query]);
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        // Récupère la liste des catégories au chargement
+        fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+            .then(res => res.json())
+            .then(data => setCategories(data.meals));
+    }, []);
 
     return (
         <div className="search-container">
@@ -40,37 +60,47 @@ const SearchResults = () => {
                 </div>
             </header>
 
-      {/* 8. Afficher un loader pendant le chargement */ }
-    {
-        loading ? (
-            <div className="loader">Chargement des recettes...</div>
-        ) : (
-            <div className="results-grid">
-                {/* 7. Gérer le cas où aucun résultat n'est trouvé */}
-                {meals.length > 0 ? (
-                    meals.map((meal) => (
-                        /* 6. Chaque card doit rediriger vers /recipe/:id */
-                        <Link to={`/recipe/${meal.idMeal}`} key={meal.idMeal} className="recipe-card">
-                            <div className="card-image">
-                                <img src={meal.strMealThumb} alt={meal.strMeal} />
-                            </div>
-                            <div className="card-content">
-                                <h3>{meal.strMeal}</h3>
-                                <span className="category-tag">{meal.strCategory}</span>
-                                <p className="area-text">{meal.strArea}</p>
-                            </div>
-                        </Link>
-                    ))
-                ) : (
-                    <div className="no-result">
-                        Désolé, nous n'avons trouvé aucune recette pour "{query}".
-                    </div>
-                )}
+            <div className="filter-bar">
+                {categories && categories.map(cat => ( // Ajout de "categories &&"
+                    <button
+                        key={cat.strCategory}
+                        onClick={() => navigate(`/search?q=${cat.strCategory}`)}
+                        className="filter-chip"
+                    >
+                        {cat.strCategory}
+                    </button>
+                ))}
             </div>
-        )
-    }
-    </div >
-  );
+            {
+                loading ? (
+                    <div className="loader">Chargement des recettes...</div>
+                ) : (
+                    <div className="results-grid">
+
+                        {meals.length > 0 ? (
+                            meals.map((meal) => (
+
+                                <Link to={`/recipe/${meal.idMeal}`} key={meal.idMeal} className="recipe-card">
+                                    <div className="card-image">
+                                        <img src={meal.strMealThumb} alt={meal.strMeal} />
+                                    </div>
+                                    <div className="card-content">
+                                        <h3>{meal.strMeal}</h3>
+                                        <span className="category-tag">{meal.strCategory}</span>
+                                        <p className="area-text">{meal.strArea}</p>
+                                    </div>
+                                </Link>
+                            ))
+                        ) : (
+                            <div className="no-result">
+                                Désolé, nous n'avons trouvé aucune recette pour "{query}".
+                            </div>
+                        )}
+                    </div>
+                )
+            }
+        </div >
+    );
 };
 
 export default SearchResults;
