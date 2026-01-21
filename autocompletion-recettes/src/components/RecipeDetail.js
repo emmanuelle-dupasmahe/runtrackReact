@@ -37,6 +37,18 @@ const RecipeDetail = () => {
         }
     }
 
+    const handleShare = () => {
+        if (navigator.share) {
+            navigator.share({
+                title: recipe.strMeal,
+                text: `Regarde cette super recette de ${recipe.strMeal} sur GlouTon !`,
+                url: window.location.href,
+            });
+        } else {
+            alert("Le partage n'est pas supporté sur ce navigateur, copiez l'URL !");
+        }
+    };
+
     return (
         <div className="recipe-detail-page">
             <header className="detail-header">
@@ -53,7 +65,9 @@ const RecipeDetail = () => {
                 <button onClick={() => navigate(-1)} className="back-button">
                     ← Retour aux résultats
                 </button>
-
+                <button onClick={handleShare} className="share-button">
+                    📤 Partager la recette
+                </button>
                 <div className="recipe-card-detail">
                     <div className="recipe-header-main">
                         <img src={recipe.strMealThumb} alt={recipe.strMeal} className="detail-img" />
