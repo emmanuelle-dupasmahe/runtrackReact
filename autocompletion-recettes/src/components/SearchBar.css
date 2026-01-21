@@ -1,0 +1,112 @@
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-container {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* Icône Loupe */
+.search-icon {
+  position: absolute;
+  left: 15px;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+/* Icône Chargement */
+.loader-spinner {
+  position: absolute;
+  right: 15px;
+  font-size: 16px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 20px 12px 45px; /* Espace pour la loupe à gauche */
+  font-size: 16px;
+  border: 1px solid #dfe1e5;
+  border-radius: 24px;
+  outline: none;
+  transition: box-shadow 0.2s;
+}
+
+.search-input:focus {
+  box-shadow: 0 1px 6px rgba(32,33,36,0.28);
+}
+
+/* Liste de suggestions */
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #dfe1e5;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  list-style: none;
+  padding: 10px 0;
+  margin: 5px 0 0 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 1000;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/* Highlight clavier et souris */
+.suggestion-item.active, .suggestion-item:hover {
+  background-color: #f1f3f4;
+}
+
+.suggestion-item.starts-with {
+  border-left: 4px solid transparent;
+}
+
+.suggestion-item.starts-with.active {
+  border-left: 4px solid #4285f4;
+}
+
+.suggestion-thumb {
+  width: 35px;
+  height: 35px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.suggestion-divider {
+  background-color: #f8f9fa;
+  padding: 5px 15px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #70757a;
+  text-transform: uppercase;
+  pointer-events: none;
+}

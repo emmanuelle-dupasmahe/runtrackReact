@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Centre verticalement sur toute la page */
+  height: 100vh;
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
 }
@@ -13,7 +13,6 @@
   max-width: 600px;
   padding: 20px;
 }
-
 
 .logo {
   display: flex;
@@ -30,117 +29,10 @@
   object-fit: contain;
 }
 
-
-
 .blue { color: #007DBE; }
 .orange { color: #ea9335; }
 
 .subtitle {
   color: #5f6368;
   margin-bottom: 30px;
-}
-
-.search-input {
-  width: 100%;
-  padding: 12px 20px;
-  font-size: 16px;
-  border: 1px solid #dfe1e5;
-  border-radius: 24px;
-  outline: none;
-  transition: box-shadow 0.2s;
-}
-
-.search-input:focus {
-  box-shadow: 0 1px 6px rgba(32,33,36,0.28);
-}
-
-.button-container {
-  margin-top: 20px;
-}
-
-.search-button {
-  background-color: #ffa500; 
-  color: white;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 20px;
-  font-size: 14px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.search-button:hover {
-  filter: brightness(0.9);
-}
-
-.search-wrapper {
-  position: relative; /* Important pour positionner la liste */
-  width: 100%;
-}
-
-.input-container {
-  position: relative;
-  width: 100%;
-}
-
-.suggestions-list {
-  position: absolute;
-  top: 100%; /* Juste en dessous de l'input */
-  left: 0;
-  right: 0;
-  background: white;
-  border: 1px solid #dfe1e5;
-  border-top: none;
-  border-radius: 0 0 24px 24px;
-  list-style: none;
-  padding: 10px 0;
-  margin: 0;
-  box-shadow: 0 4px 6px rgba(32,33,36,0.28);
-  z-index: 1000; /* Pour passer devant les autres éléments */
-  max-height: 300px;
-  overflow-y: auto;
-  text-align: left;
-}
-
-.suggestions-list li {
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.2s;
-}
-
-.suggestions-list li:hover {
-  background-color: #f1f1f1;
-}
-
-/* Ajustement de l'input si des suggestions sont présentes */
-.search-input {
-  
-  z-index: 1001;
-}
-.suggestion-item {
-  display: flex;
-  align-items: center;
-  gap: 12px; /* Espace entre l'image et le texte */
-  padding: 8px 15px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.suggestion-item:hover {
-  background-color: #f8f9fa;
-}
-
-.suggestion-thumb {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px; /* Coins arrondis pour un look moderne */
-  object-fit: cover; /* Évite de déformer l'image */
-  border: 1px solid #eee;
-}
-
-.suggestion-item span {
-  font-size: 14px;
-  color: #333;
-  font-weight: 500;
 }
