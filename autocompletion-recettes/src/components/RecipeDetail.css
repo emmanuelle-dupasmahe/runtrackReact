@@ -58,11 +58,12 @@
 }
 
 .header-search-bar .search-input {
-  padding: 8px 15px;
+  padding: 8px 15px 8px 45px !important;
   font-size: 14px;
 }
 
 .header-search-bar .search-button {
+  display: none;
   padding: 8px 15px;
   font-size: 12px;
 }

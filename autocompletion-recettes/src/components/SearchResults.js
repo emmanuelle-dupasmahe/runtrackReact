@@ -3,6 +3,7 @@ import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import './SearchResults.css';
 import logoImg from './glouton.png';
+import logoOpenImg from './glouton-open.png';
 
 const SearchResults = () => {
     const [searchParams] = useSearchParams();
@@ -12,21 +13,21 @@ const SearchResults = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+
         const fetchMeals = async () => {
             setLoading(true);
             try {
-                
                 const catRes = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
                 const catData = await catRes.json();
                 const isCategory = catData.meals.some(c => c.strCategory.toLowerCase() === query.toLowerCase());
 
-               
                 const url = isCategory
                     ? `https://www.themealdb.com/api/json/v1/1/filter.php?c=${query}`
                     : `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
 
                 const response = await fetch(url);
                 const data = await response.json();
+
                 setMeals(data.meals || []);
             } catch (error) {
                 console.error("Erreur API:", error);
@@ -34,6 +35,8 @@ const SearchResults = () => {
                 setLoading(false);
             }
         };
+
+
 
         if (query) fetchMeals();
     }, [query]);
@@ -51,10 +54,17 @@ const SearchResults = () => {
         <div className="search-container">
             <header className="results-header">
 
+
                 <Link to="/" className="mini-logo">
-                    <img src={logoImg} alt="Logo GlouTon" className="header-logo-img" />
+                    <img
+                        src={loading ? logoOpenImg : logoImg}
+                        alt="Logo GlouTon"
+                        className={`header-logo-img ${loading ? 'excited' : ''}`}
+                    />
                     <span className="blue">Glou</span><span className="orange">Ton</span>
                 </Link>
+
+
                 <div className="search-bar-container">
                     <SearchBar />
                 </div>
@@ -86,8 +96,9 @@ const SearchResults = () => {
                                     </div>
                                     <div className="card-content">
                                         <h3>{meal.strMeal}</h3>
-                                        <span className="category-tag">{meal.strCategory}</span>
-                                        <p className="area-text">{meal.strArea}</p>
+
+                                        {meal.strCategory && <span className="category-tag">{meal.strCategory}</span>}
+                                        {meal.strArea && <p className="area-text">{meal.strArea}</p>}
                                     </div>
                                 </Link>
                             ))

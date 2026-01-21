@@ -110,3 +110,25 @@
   text-transform: uppercase;
   pointer-events: none;
 }
+.history-icon {
+  margin-right: 10px;
+  font-size: 14px;
+  color: #9aa0a6;
+}
+
+.history-item span {
+  color: #5f6368;
+}
+
+.clear-history {
+  padding: 8px 15px;
+  font-size: 12px;
+  color: #4285f4;
+  text-align: right;
+  cursor: pointer;
+  border-top: 1px solid #eee;
+}
+
+.clear-history:hover {
+  text-decoration: underline;
+}
