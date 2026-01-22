@@ -44,7 +44,7 @@ const SearchResults = () => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        // Récupère la liste des catégories au chargement
+        // récupère la liste des catégories au chargement
         fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
             .then(res => res.json())
             .then(data => setCategories(data.meals));
@@ -53,7 +53,6 @@ const SearchResults = () => {
     return (
         <div className="search-container">
             <header className="results-header">
-
 
                 <Link to="/" className="mini-logo">
                     <img
@@ -71,7 +70,7 @@ const SearchResults = () => {
             </header>
 
             <div className="filter-bar">
-                {categories && categories.map(cat => ( // Ajout de "categories &&"
+                {categories && categories.map(cat => ( 
                     <button
                         key={cat.strCategory}
                         onClick={() => navigate(`/search?q=${cat.strCategory}`)}

@@ -18,7 +18,7 @@
   align-items: center;
 }
 
-/* Icône Loupe */
+/* Loupe */
 .search-icon {
   position: absolute;
   left: 15px;
@@ -26,22 +26,10 @@
   pointer-events: none;
 }
 
-/* Icône Chargement */
-.loader-spinner {
-  position: absolute;
-  right: 15px;
-  font-size: 16px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
 
 .search-input {
   width: 100%;
-  padding: 12px 20px 12px 45px; /* Espace pour la loupe à gauche */
+  padding: 12px 20px 12px 45px; /* espace pour la loupe à gauche */
   font-size: 16px;
   border: 1px solid #dfe1e5;
   border-radius: 24px;
@@ -131,4 +119,27 @@
 
 .clear-history:hover {
   text-decoration: underline;
+}
+
+/*pour le bouton de recherche*/
+.search-button {
+  background-color: #ea9335; 
+  color: #ffffff;           
+  border: none;
+  
+  padding: 8px 18px; 
+  border-radius: 20px;     
+  font-weight: 600;         
+  font-size: 14px;           
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.search-button:hover {
+  background-color: #d8822d; 
+  transform: translateY(-1px); 
+}
+
+.search-button:active {
+  transform: translateY(0);   
 }

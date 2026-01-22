@@ -18,21 +18,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3.5rem; 
-  margin-bottom: 10px;
-  gap: 10px; 
+  font-size: 2.5rem; 
+  margin-bottom: 25px;
+  cursor: pointer;
+  animation: none !important;
 }
 
 .logo-icon {
-  height: 100px;
+  height: 120px; /* Taille du Glouton */
   width: auto;
-  object-fit: contain;
+  margin-right: 15px;
+  pointer-events: none;
+  animation: none !important;
+  filter: none !important;
 }
 
 .blue { color: #007DBE; }
 .orange { color: #ea9335; }
 
-.subtitle {
-  color: #5f6368;
-  margin-bottom: 30px;
+/* Suppression des animations sur l'état excited */
+.logo-icon.excited {
+  transform: scale(1.05) !important; /* Un mini zoom très discret au lieu de sauter */
 }

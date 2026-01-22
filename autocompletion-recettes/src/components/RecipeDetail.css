@@ -8,8 +8,9 @@
   top: 0;
   z-index: 100;
   gap: 30px;
+  border-radius: 20px;
 }
-/* Style pour le lien du logo */
+/* lien du logo */
 .mini-logo {
   display: flex;
   align-items: center;
@@ -20,18 +21,18 @@
   gap: 10px;
 }
 
-/* Taille de l'image du logo dans le header */
+/* taille de l'image du logo dans le header */
 .header-logo-img {
-  height: 40px; /* Ajustez selon votre préférence */
+  height: 40px; 
   width: auto;
   object-fit: contain;
 }
 
-/* Couleurs spécifiques */
+
 .blue { color: #4285F4; }
 .orange { color: #FFA500; }
 
-/* Alignement du header */
+/* alignement du header */
 .results-header, .detail-header {
   display: flex;
   align-items: center;
@@ -46,7 +47,7 @@
   height: 35px;
 }
 
-/* On ajuste la barre de recherche pour qu'elle soit moins large dans le header */
+/*  barre de recherche moins large */
 .header-search-bar {
   flex: 1;
   max-width: 500px;
@@ -63,7 +64,6 @@
 }
 
 .header-search-bar .search-button {
-  display: none;
   padding: 8px 15px;
   font-size: 12px;
 }
@@ -130,7 +130,7 @@
 
 .instructions-text {
   line-height: 1.6;
-  white-space: pre-line; /* Respecte les sauts de ligne de l'API */
+  white-space: pre-line; 
   color: #444;
 }
 

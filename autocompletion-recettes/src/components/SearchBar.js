@@ -2,55 +2,22 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SearchBar.css';
 
-const SearchBar = ({ onTyping }) => {
+const SearchBar = ({ onTyping = () => { } }) => {
   const [query, setQuery] = useState('');
   const [groupedSuggestions, setGroupedSuggestions] = useState({ startsWith: [], contains: [] });
   const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(-1);
   const [loading, setLoading] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const navigate = useNavigate();
   const searchRef = useRef(null);
-  
- 
+
+  const flatSuggestions = query.length === 0 
+    ? history 
+    : [...groupedSuggestions.startsWith, ...groupedSuggestions.contains];
+
   useEffect(() => {
-    if (query.length > 0) {
-      onTyping(true); // GlouTon a faim !
-    } else {
-      onTyping(false); // Il ferme la bouche
-    }
-
-    const timer = setTimeout(() => {
-      if (query.length >= 2) fetchSuggestions();
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [query, onTyping]);
-  
-
-
-
-  const flatSuggestions = [...groupedSuggestions.startsWith, ...groupedSuggestions.contains];
-
-  // charge l'historique
-  useEffect(() => {
-    const savedHistory = JSON.parse(localStorage.getItem('glouton_history')) || [];
-    setHistory(savedHistory);
-  }, []);
-
-  // détection du clic extérieur
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (searchRef.current && !searchRef.current.contains(e.target)) {
-        setShowHistory(false);
-        setGroupedSuggestions({ startsWith: [], contains: [] });
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  // API Suggestions avec Debounce
-  useEffect(() => {
+    onTyping(query.length > 0);
     const timer = setTimeout(() => {
       if (query.length >= 2) fetchSuggestions();
       else setGroupedSuggestions({ startsWith: [], contains: [] });
@@ -75,26 +42,42 @@ const SearchBar = ({ onTyping }) => {
     }
   };
 
-  const saveToHistory = (searchTerm) => {
-    if (!searchTerm.trim()) return;
-    const newHistory = [searchTerm, ...history.filter(h => h !== searchTerm)].slice(0, 5);
-    setHistory(newHistory);
-    localStorage.setItem('glouton_history', JSON.stringify(newHistory));
+ 
+  const highlightMatch = (text, term) => {
+    if (!term) return text;
+    const parts = text.split(new RegExp(`(${term})`, 'gi'));
+    return (
+      <span>
+        {parts.map((part, i) =>
+          part.toLowerCase() === term.toLowerCase()
+            ? <strong key={i} className="match-highlight">{part}</strong>
+            : part
+        )}
+      </span>
+    );
   };
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('glouton_history')) || [];
+    setHistory(saved);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (searchRef.current && !searchRef.current.contains(e.target)) setShowHistory(false); setSelectedIndex(-1);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleSuggestionClick = (name) => {
-    setQuery(name);
-    saveToHistory(name);
+    const term = typeof name === 'string' ? name : name.strMeal;
+    const newHistory = [term, ...history.filter(h => h !== term)].slice(0, 5);
+    setHistory(newHistory);
+    localStorage.setItem('glouton_history', JSON.stringify(newHistory));
+    setQuery(term);
     setShowHistory(false);
-    setGroupedSuggestions({ startsWith: [], contains: [] });
-    navigate(`/search?q=${encodeURIComponent(name)}`);
-  };
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (query.trim()) {
-      handleSuggestionClick(query);
-    }
+    navigate(`/search?q=${encodeURIComponent(term)}`);
   };
 
   const handleKeyDown = (e) => {
@@ -107,33 +90,17 @@ const SearchBar = ({ onTyping }) => {
     } else if (e.key === 'Enter') {
       if (selectedIndex >= 0) {
         e.preventDefault();
-        handleSuggestionClick(flatSuggestions[selectedIndex].strMeal);
+        handleSuggestionClick(flatSuggestions[selectedIndex]);
       }
     } else if (e.key === 'Escape') {
-      setShowHistory(false);
-      setGroupedSuggestions({ startsWith: [], contains: [] });
-    }
+    setShowHistory(false);
+    setSelectedIndex(-1);
+  }
   };
-
-  const highlightMatch = (text, term) => {
-    if (!term) return text;
-    const parts = text.split(new RegExp(`(${term})`, 'gi'));
-    return (
-      <span>
-        {parts.map((part, i) =>
-          part.toLowerCase() === term.toLowerCase()
-            ? <strong key={i} style={{ color: '#ea9335', fontWeight: 'bold' }}>{part}</strong>
-            : part
-        )}
-      </span>
-    );
-  };
-
-
 
   return (
     <div className="search-wrapper" ref={searchRef}>
-      <form onSubmit={handleSearchSubmit} className="search-form">
+      <form onSubmit={(e) => { e.preventDefault(); if(query.trim()) handleSuggestionClick(query); }} className="search-form">
         <div className="input-container">
           <span className="search-icon">🔍</span>
           <input
@@ -145,49 +112,50 @@ const SearchBar = ({ onTyping }) => {
             onKeyDown={handleKeyDown}
             className="search-input"
           />
-          {loading && <span className="loader-spinner">⏳</span>}
+          
 
-          {/* affichage de l'historique (quand vide) */}
-          {showHistory && query.length === 0 && history.length > 0 && (
-            <ul className="suggestions-list history-list">
-              <li className="suggestion-divider">Recherches récentes</li>
-              {history.map((item, index) => (
-                <li key={index} className="suggestion-item history-item" onClick={() => handleSuggestionClick(item)}>
-                  <span className="history-icon">🕒</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-              <li className="clear-history" onClick={() => { setHistory([]); localStorage.removeItem('glouton_history'); }}>
-                Effacer l'historique
-              </li>
-            </ul>
-          )}
-
-          {/* affichage des suggestions API (quand query >= 2) */}
-          {flatSuggestions.length > 0 && (
+          {showHistory && (history.length > 0 || flatSuggestions.length > 0) && (
             <ul className="suggestions-list">
-              {[...groupedSuggestions.startsWith, ...groupedSuggestions.contains].map((meal, index) => {
-                const isDivider = index === groupedSuggestions.startsWith.length && groupedSuggestions.contains.length > 0;
-                return (
-                  <React.Fragment key={meal.idMeal}>
-                    {isDivider && <li className="suggestion-divider">Autres résultats</li>}
-                    <li
-                      onClick={() => handleSuggestionClick(meal.strMeal)}
-                      className={`suggestion-item ${index === selectedIndex ? 'active' : ''} ${index < groupedSuggestions.startsWith.length ? 'starts-with' : ''}`}
-                    >
+              {query.length === 0 && (
+                <>
+                  <li className="suggestion-divider">Recherches récentes</li>
+                  {history.map((item, i) => (
+                    <li key={`hist-${i}`} className={`suggestion-item ${i === selectedIndex ? 'active' : ''}`} onClick={() => handleSuggestionClick(item)}>
+                      <span className="history-icon">🕒</span> {item}
+                    </li>
+                  ))}
+                  <li className="clear-history" onClick={(e) => { e.stopPropagation(); setHistory([]); localStorage.removeItem('glouton_history'); }}>Effacer l'historique</li>
+                </>
+              )}
+
+              {query.length >= 2 && (
+                <>
+                  {groupedSuggestions.startsWith.map((meal, i) => (
+                    <li key={meal.idMeal} className={`suggestion-item ${i === selectedIndex ? 'active' : ''}`} onClick={() => handleSuggestionClick(meal)}>
                       <img src={meal.strMealThumb} alt="" className="suggestion-thumb" />
                       <span>{highlightMatch(meal.strMeal, query)}</span>
                     </li>
-                  </React.Fragment>
-                );
-              })}
+                  ))}
+                  {groupedSuggestions.contains.length > 0 && (
+                    <>
+                      <li className="suggestion-divider">Autres résultats</li>
+                      {groupedSuggestions.contains.map((meal, i) => {
+                        const globalIndex = i + groupedSuggestions.startsWith.length;
+                        return (
+                          <li key={meal.idMeal} className={`suggestion-item ${globalIndex === selectedIndex ? 'active' : ''}`} onClick={() => handleSuggestionClick(meal)}>
+                            <img src={meal.strMealThumb} alt="" className="suggestion-thumb" />
+                            <span>{highlightMatch(meal.strMeal, query)}</span>
+                          </li>
+                        );
+                      })}
+                    </>
+                  )}
+                </>
+              )}
             </ul>
           )}
         </div>
-        
-        <div className="button-container">
-            <button type="submit" className="search-button">Rechercher</button>
-        </div>
+        <button type="submit" className="search-button">Rechercher</button>
       </form>
     </div>
   );
