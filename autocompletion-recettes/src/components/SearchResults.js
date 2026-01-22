@@ -60,7 +60,9 @@ const SearchResults = () => {
                         alt="Logo GlouTon"
                         className={`header-logo-img ${loading ? 'excited' : ''}`}
                     />
-                    <span className="blue">Glou</span><span className="orange">Ton</span>
+                    <div className="logo-text-wrapper">
+                        <span className="blue">Glou</span><span className="orange">Ton</span>
+                    </div>
                 </Link>
 
 

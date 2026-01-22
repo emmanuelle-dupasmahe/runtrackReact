@@ -143,3 +143,15 @@
 .search-button:active {
   transform: translateY(0);   
 }
+
+.logo {
+  display: flex !important;
+  gap: 0 !important; 
+  white-space: nowrap; 
+}
+
+
+.logo span {
+  margin: 0 !important;
+  padding: 0 !important;
+}

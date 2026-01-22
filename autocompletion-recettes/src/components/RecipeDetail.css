@@ -29,6 +29,11 @@
 }
 
 
+.logo-text-wrapper {
+  display: flex;
+  gap: 0; /* Ici, l'espace est strictement à zéro */
+}
+
 .blue { color:#0074BD; }
 .orange { color: #FFA500; }
 
@@ -135,3 +140,124 @@
 }
 
 
+/*pour l'impression*/
+@media print {
+  /* 1. On cache tout ce qui est inutile sur papier */
+  .detail-header, 
+  .back-button, 
+  .share-button, 
+  .print-button,
+  .filter-bar,
+  .search-bar-container {
+    display: none !important;
+  }
+
+  /* 2. On réinitialise les marges du corps de page */
+  body {
+    background-color: white !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  .recipe-detail-page {
+    padding: 0;
+    margin: 0;
+  }
+
+  /* 3. Mise en page du titre et de l'image */
+  .recipe-header-main {
+    display: flex;
+    flex-direction: row; /* Aligné horizontalement sur papier */
+    gap: 30px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ea9335; /* Ligne orange GlouTon */
+    padding-bottom: 20px;
+  }
+
+  .detail-img {
+    width: 250px !important; /* Image plus petite pour laisser de la place au texte */
+    height: auto;
+    border-radius: 10px;
+  }
+
+  /* 4. Organisation des sections */
+  .ingredients-section, .instructions-section {
+    page-break-inside: avoid; /* Évite de couper une section en deux pages */
+  }
+
+  h1 {
+    font-size: 28pt;
+    color: #007DBE; /* Titre en bleu GlouTon même à l'impression */
+  }
+
+  h2 {
+    border-left: 5px solid #ea9335;
+    padding-left: 10px;
+    margin-top: 20px;
+  }
+
+  /* 5. Ingrédients en deux colonnes pour gagner de la place */
+  .ingredients-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .ingredient-item {
+    font-size: 11pt;
+    border-bottom: 1px dotted #ccc;
+    padding: 5px 0;
+  }
+}
+
+.print-only-footer {
+  display: none; /* Caché sur l'écran */
+}
+
+@media print {
+  .print-only-footer {
+    display: block;
+    text-align: center;
+    font-size: 9pt;
+    color: #666;
+    margin-top: 50px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+  }
+}
+
+
+/* le bouton imprimer*/
+.print-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; 
+  background-color: #007DBE; 
+  color: #ffffff;            
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;       
+  /* font-weight: 600;
+  font-size: 14px; */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-left: 12px;
+}
+
+.print-button:hover {
+  background-color: #005a8a; 
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.print-button:active {
+  transform: translateY(0);
+}
+
+/* On n'oublie pas de cacher ce bouton sur le papier ! */
+@media print {
+  .print-button {
+    display: none !important;
+  }
+}

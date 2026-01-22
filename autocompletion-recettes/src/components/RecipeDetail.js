@@ -54,7 +54,10 @@ const RecipeDetail = () => {
             <header className="detail-header">
                 <Link to="/" className="mini-logo">
                     <img src={logoImg} alt="Logo" className="header-logo-img" />
-                    <span className="blue">Glou</span><span className="orange">Ton</span>
+                    <div className="logo-text-wrapper">
+                        <span className="blue">Glou</span><span className="orange">Ton</span>
+                    </div>
+
                 </Link>
                 <div className="header-search-bar">
                     <SearchBar />
@@ -67,6 +70,9 @@ const RecipeDetail = () => {
                 </button>
                 <button onClick={handleShare} className="share-button">
                     📤 Partager la recette
+                </button>
+                <button onClick={() => window.print()} className="print-button">
+                    🖨️ Imprimer la recette
                 </button>
                 <div className="recipe-card-detail">
                     <div className="recipe-header-main">
@@ -83,10 +89,13 @@ const RecipeDetail = () => {
                         <div className="ingredients-grid">
                             {ingredients.map((item, index) => (
                                 <div key={index} className="ingredient-item">
+                                    {/* La case à cocher qui n'apparaîtra qu'à l'impression */}
+                                    <span className="print-checkbox"></span>
                                     <strong>{item.amount}</strong> {item.name}
                                 </div>
                             ))}
                         </div>
+
                     </section>
 
                     <section className="instructions-section">
@@ -95,6 +104,9 @@ const RecipeDetail = () => {
                     </section>
                 </div>
             </div>
+            <footer className="print-only-footer">
+                Recette trouvée sur GlouTon - {window.location.href}
+            </footer>
         </div>
     );
 };

@@ -6,17 +6,26 @@
   font-family: 'Arial', sans-serif;
   font-weight: bold;
   font-size: 1.5rem;
-  gap: 10px;
+  gap: 8px; 
 }
 
+/* On force Glou et Ton à se coller, même s'il y a un gap sur le parent */
+.mini-logo span {
+  margin: 0 !important;
+  display: inline-block;
+}
 
 /* taille de l'image du logo dans le header */
 .header-logo-img {
   height: 40px; 
   width: auto;
   object-fit: contain;
+  margin-right: 8px; 
 }
-
+.logo-text-wrapper {
+  display: flex;
+  gap: 0; /* Ici, l'espace est strictement à zéro */
+}
 
 .blue { color: #4285F4; }
 .orange { color: #FFA500; }
