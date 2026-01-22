@@ -142,7 +142,12 @@
 
 /*pour l'impression*/
 @media print {
-  /* 1. On cache tout ce qui est inutile sur papier */
+  @page {
+    margin: 1cm;
+  }
+  h2, h3 {
+    page-break-after: avoid; 
+  }
   .detail-header, 
   .back-button, 
   .share-button, 
@@ -174,8 +179,19 @@
     padding-bottom: 20px;
   }
 
+
+  
+  /* On réduit les espaces entre les sections */
+  section {
+    margin-bottom: 15px !important;
+  }
+
+
+
+
+
   .detail-img {
-    width: 250px !important; /* Image plus petite pour laisser de la place au texte */
+    width: 180px !important; /* Image plus petite pour laisser de la place au texte */
     height: auto;
     border-radius: 10px;
   }
@@ -186,11 +202,14 @@
   }
 
   h1 {
-    font-size: 28pt;
-    color: #007DBE; /* Titre en bleu GlouTon même à l'impression */
+    font-size: 20pt; 
+    margin-top: 0;
+    color: #007DBE; 
   }
 
   h2 {
+    font-size: 16pt; 
+    margin-bottom: 10px;
     border-left: 5px solid #ea9335;
     padding-left: 10px;
     margin-top: 20px;
@@ -220,12 +239,40 @@
     text-align: center;
     font-size: 9pt;
     color: #666;
-    margin-top: 50px;
+    margin-top: 20px;
     border-top: 1px solid #eee;
     padding-top: 10px;
+    page-break-before: avoid; 
+    break-before: avoid;
+    position: relative;
   }
 }
+/* 1. Caché par défaut sur l'écran */
+.print-checkbox {
+  display: none;
+}
 
+/* 2. Style spécifique pour l'impression */
+@media print {
+  .print-checkbox {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #333; 
+    margin-right: 10px;
+    vertical-align: middle;
+    border-radius: 2px; 
+  }
+
+  /* On s'assure que les ingrédients sont bien alignés avec la case */
+  .ingredient-item {
+    display: flex;
+    align-items: center;
+    page-break-inside: avoid;
+    margin-bottom: 8px;
+    border-bottom: none !important; 
+  }
+}
 
 /* le bouton imprimer*/
 .print-button {
@@ -237,8 +284,6 @@
   border: none;
   padding: 8px 16px;
   border-radius: 5px;       
-  /* font-weight: 600;
-  font-size: 14px; */
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
