@@ -16,6 +16,7 @@ const SearchBar = ({ onTyping = () => { } }) => {
     ? history 
     : [...groupedSuggestions.startsWith, ...groupedSuggestions.contains];
 
+  // debounce
   useEffect(() => {
     onTyping(query.length > 0);
     const timer = setTimeout(() => {
@@ -42,7 +43,7 @@ const SearchBar = ({ onTyping = () => { } }) => {
     }
   };
 
- 
+ //lettres cherchées en gras
   const highlightMatch = (text, term) => {
     if (!term) return text;
     const parts = text.split(new RegExp(`(${term})`, 'gi'));

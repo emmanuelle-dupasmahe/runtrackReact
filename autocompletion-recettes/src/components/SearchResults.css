@@ -78,12 +78,12 @@
 /* Highlight */
 strong {
   font-weight: 800;
-  color: #4285f4;
+  color: #0074BD;
 }
 
 /* Bouton Partager */
 .share-button {
-  background-color: #34a853; /* Vert */
+  background-color: #FFA500; 
   color: white;
   border: none;
   padding: 8px 16px;
