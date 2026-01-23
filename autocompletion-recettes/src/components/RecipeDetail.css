@@ -117,20 +117,47 @@
   object-fit: cover;
 }
 
+/* 1. Configuration pour ORDINATEUR */
 .ingredients-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  /* On garde 2 ou 3 colonnes sur grand écran selon votre choix */
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 15px;
+  width: 100%;
   background: #f9f9f9;
   padding: 20px;
   border-radius: 10px;
+  /* Très important pour que le padding ne fasse pas déborder la grille */
+  box-sizing: border-box; 
 }
 
 .ingredient-item {
+  display: flex;
+  align-items: center;
   padding: 10px;
   border: 1px solid #eee;
   background: white;
   font-size: 0.9rem;
+  border-radius: 5px;
+  /* Empêche le texte de sortir du petit cadre blanc */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  min-width: 0; 
+}
+
+/* 2. Configuration pour MOBILE (Écran de moins de 600px) */
+@media (max-width: 600px) {
+  .ingredients-grid {
+    /* On force le passage à UNE SEULE colonne */
+    grid-template-columns: 1fr !important; 
+    gap: 10px;
+    padding: 10px; /* On réduit un peu le padding sur mobile */
+  }
+
+  .ingredient-item {
+    font-size: 14px;
+    padding: 12px; /* On donne un peu plus d'espace pour cliquer/lire */
+  }
 }
 
 .instructions-text {
