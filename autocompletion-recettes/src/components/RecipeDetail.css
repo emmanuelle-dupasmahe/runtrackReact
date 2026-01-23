@@ -179,16 +179,11 @@
     padding-bottom: 20px;
   }
 
-
   
   /* On réduit les espaces entre les sections */
   section {
     margin-bottom: 15px !important;
   }
-
-
-
-
 
   .detail-img {
     width: 180px !important; /* Image plus petite pour laisser de la place au texte */
