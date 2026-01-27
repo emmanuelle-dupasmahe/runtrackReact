@@ -7,7 +7,7 @@ import RecipeDetail from './components/RecipeDetail';
 import './App.css';
 
 function App() {
-  function App() {
+  
   return (
     <Router>
       <div className="App"> 
@@ -26,4 +26,3 @@ function App() {
   
 
 export default App;
-
