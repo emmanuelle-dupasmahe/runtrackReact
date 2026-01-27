@@ -7,21 +7,23 @@ import RecipeDetail from './components/RecipeDetail';
 import './App.css';
 
 function App() {
+  function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App"> 
         <Routes>
-          {/* Route pour la page d'accueil */}
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<SearchResults />} />
           <Route path="/recipe/:id" element={<RecipeDetail />} />
         </Routes>
+        
+        <Footer />
+        <h1>TEST COUCOU</h1>
       </div>
-      <Footer />
-      <h1>TEST COUCOU</h1>
     </Router>
   );
 }
+  
 
 export default App;
 
