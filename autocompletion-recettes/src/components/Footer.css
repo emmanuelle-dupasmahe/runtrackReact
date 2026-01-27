@@ -1,0 +1,26 @@
+/* ==========================================================
+   STYLE DU FOOTER GLOUTON
+   ========================================================== */
+
+.main-footer {
+  background-color: #f8f9fa; /* Même fond que votre Home pour la cohérence */
+  color: #333;
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 4px solid #FFA500; /* Rappel du Orange GlouTon */
+  margin-top: auto; /* Important pour le pousser en bas */
+}
+
+.footer-content p {
+  margin: 10px 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* On réutilise vos classes de couleurs pour le logo dans le footer */
+.logo-footer {
+  font-weight: bold;
+}
+
+.logo-footer .blue { color: #0074BD; }
+.logo-footer .orange { color: #FFA500; }

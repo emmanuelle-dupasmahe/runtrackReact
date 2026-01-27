@@ -1,0 +1,10 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* On force le contenu entre le header et le footer à prendre la place */
+.App > *:not(.main-footer) {
+  flex: 1;
+}
