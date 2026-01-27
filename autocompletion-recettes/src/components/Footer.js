@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="main-footer">
       <div className="footer-content">
-        <p>&copy; {year} <span className="logo-footer"><span className="blue">Glou</span><span className="orange">Ton</span> Tous droits réservés.</p>
+        <p>&copy; {year} <span className="logo-footer"><span className="blue">Glou</span><span className="orange">Ton</span> </span>Tous droits réservés.</p>
         <p>Données fournies par TheMealDB</p>
       </div>
     </footer>
