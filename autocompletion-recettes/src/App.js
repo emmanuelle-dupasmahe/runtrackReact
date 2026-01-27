@@ -7,22 +7,23 @@ import RecipeDetail from './components/RecipeDetail';
 import './App.css';
 
 function App() {
-  
   return (
     <Router>
       <div className="App"> 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search" element={<SearchResults />} />
-          <Route path="/recipe/:id" element={<RecipeDetail />} />
-        </Routes>
+        {/* Le conteneur principal qui va "pousser" le footer */}
+        <div className="content-wrap">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/search" element={<SearchResults />} />
+            <Route path="/recipe/:id" element={<RecipeDetail />} />
+          </Routes>
+        </div>
         
+        {/* Le Footer est bien là, à la fin */}
         <Footer />
-        <h1>TEST COUCOU</h1>
       </div>
     </Router>
   );
 }
-  
 
 export default App;

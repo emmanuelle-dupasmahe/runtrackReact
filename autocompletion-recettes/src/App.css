@@ -6,13 +6,19 @@ html, body, #root {
   overflow-x: hidden;
 }
 
+/* App.css */
 .App {
-  display: flex !important;
-  flex-direction: column !important;
-  min-height: 100vh !important;
-  width: 100%;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Oblige l'appli à faire toute la hauteur de l'écran */
 }
+
+.content-wrap {
+  flex: 1; /* C'est cette ligne qui pousse le footer en bas ! */
+}
+
+body { overflow-y: scroll !important; }
+
 
 /* On force l'espace des routes à pousser le reste */
 .App > *:first-child {
@@ -21,6 +27,7 @@ html, body, #root {
 
 /* Style de secours pour être SUR de voir le h1 et le footer */
 .main-footer {
+    flex-shrink: 0;
   background-color: #f8f9fa !important;
   border-top: 5px solid #FFA500 !important;
   padding: 50px 0 !important;
