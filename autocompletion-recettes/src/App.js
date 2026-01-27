@@ -18,6 +18,7 @@ function App() {
         </Routes>
       </div>
       <Footer />
+      <h1>TEST COUCOU</h1>
     </Router>
   );
 }
