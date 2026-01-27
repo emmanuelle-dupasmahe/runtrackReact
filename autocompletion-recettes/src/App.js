@@ -10,8 +10,7 @@ function App() {
   return (
     <Router>
       <div className="App"> 
-        {/* Le conteneur principal qui va "pousser" le footer */}
-        <div className="content-wrap">
+        <div style={{ minHeight: '50vh', background: '#ccc' }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<SearchResults />} />
@@ -19,7 +18,11 @@ function App() {
           </Routes>
         </div>
         
-        {/* Le Footer est bien là, à la fin */}
+        {/* On écrit en brut pour voir si le problème vient du composant Footer */}
+        <footer style={{ background: 'orange', padding: '20px', color: 'white', textAlign: 'center' }}>
+          JE SUIS LE FOOTER DE TEST
+        </footer>
+
         <Footer />
       </div>
     </Router>
