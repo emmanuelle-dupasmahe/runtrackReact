@@ -1,3 +1,11 @@
+.search-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Oblige la page à prendre toute la hauteur */
+  background-color: #f8f9fa; /* Pour garder le même gris clair partout */
+}
+
+
 /* lien du logo */
 .mini-logo {
   display: flex;

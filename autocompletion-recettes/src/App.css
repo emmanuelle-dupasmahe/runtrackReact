@@ -1,21 +1,22 @@
-/* Empêche les pages de manger tout l'espace sans laisser scroller */
 html, body {
-  height: auto !important;
-  overflow-y: auto !important;
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Important pour que le 100vh des enfants fonctionne */
 }
 
 .App {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Toute la hauteur de l'écran minimum */
+  min-height: 100vh;
+  width: 100%;
 }
 
-/* Le contenu principal prend l'espace, le footer prend le reste */
-.App > *:first-child { 
-  flex: 1 0 auto; 
+/* On force le contenu des pages (Routes) à prendre toute la place 
+   disponible pour pousser le footer vers le bas */
+.App > div:first-child {
+  flex: 1 0 auto;
 }
 
 .main-footer {
-  flex-shrink: 0; /* Empêche le footer de s'écraser */
-  width: 100%;
+  flex-shrink: 0; /* Empêche le footer de se ratatiner */
 }
