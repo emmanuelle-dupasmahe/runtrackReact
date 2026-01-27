@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  /* CHANGEZ height en min-height et enlevez le calc pour tester */
+  min-height: 80vh; 
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
 }
