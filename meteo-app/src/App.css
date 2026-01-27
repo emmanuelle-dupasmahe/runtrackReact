@@ -365,3 +365,21 @@ body.dark-theme .temp-hot {
         font-size: 2rem;
     }
 }
+.main-footer {
+  
+  width: 100%;
+  border-top: 2px solid #0400ff; 
+  text-align: center;
+  padding: 20px 0; 
+  margin-top: auto; 
+}
+
+.footer-content p {
+  margin: 5px 0; 
+  font-size: 0.85rem; 
+  color: #666;
+}
+
+.logo-footer {
+  font-weight: bold;
+}

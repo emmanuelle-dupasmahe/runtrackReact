@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Meteo from './components/Weather';
+import Footer from './components/Footer';
 import SearchBar from './components/SearchBar';
 import Favorites from './components/Favorites';
 import './App.css';
@@ -126,6 +127,7 @@ function App() {
             />
 
             <Meteo ville={city} onAddFavorite={addToFavorites} />
+            <Footer />
         </div>
     );
 }
