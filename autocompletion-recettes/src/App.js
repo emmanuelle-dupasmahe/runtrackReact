@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home'; 
+import Footer from './components/Footer';
 import SearchResults from './components/SearchResults';
 import RecipeDetail from './components/RecipeDetail';
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="/recipe/:id" element={<RecipeDetail />} />
         </Routes>
       </div>
+      <Footer />
     </Router>
   );
 }
