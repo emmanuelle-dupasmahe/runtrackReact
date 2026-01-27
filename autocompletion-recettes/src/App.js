@@ -10,23 +10,17 @@ function App() {
   return (
     <Router>
       <div className="App"> 
-        <div style={{ minHeight: '50vh', background: '#ccc' }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<SearchResults />} />
-            <Route path="/recipe/:id" element={<RecipeDetail />} />
-          </Routes>
-        </div>
+    
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<SearchResults />} />
+          <Route path="/recipe/:id" element={<RecipeDetail />} />
+        </Routes>
         
-        {/* On écrit en brut pour voir si le problème vient du composant Footer */}
-        <footer style={{ background: 'orange', padding: '20px', color: 'white', textAlign: 'center' }}>
-          JE SUIS LE FOOTER DE TEST
-        </footer>
-
+      
         <Footer />
       </div>
     </Router>
   );
 }
-
 export default App;
